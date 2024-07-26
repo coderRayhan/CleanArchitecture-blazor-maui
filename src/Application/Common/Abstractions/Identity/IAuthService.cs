@@ -1,4 +1,4 @@
-﻿using Application.Features.Idenity.Models;
+﻿using Application.Features.Identity.Models;
 using Domain.Shared;
 
 namespace Application.Common.Abstractions.Identity;

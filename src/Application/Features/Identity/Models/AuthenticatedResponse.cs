@@ -1,6 +1,6 @@
 ﻿using Domain.Shared;
 
-namespace Application.Features.Idenity.Models;
+namespace Application.Features.Identity.Models;
 public class AuthenticatedResponse
 {
     public required string AccessToken { get; init; }
