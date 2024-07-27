@@ -21,6 +21,8 @@ public static class DependencyInjection
     {
         services.AddTransient<IIdentityService, IdentityService>();
 
+        services.AddTransient<IIdentityRoleService, IdentityRoleService>();
+
         services.AddTransient<ITokenProviderService, TokenProviderService>();
     }
     private static void AddAuthenticationAuthorization(IServiceCollection services)
