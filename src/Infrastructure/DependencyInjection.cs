@@ -1,5 +1,6 @@
 ﻿using Application.Common.Abstractions.Identity;
 using Domain.Constants;
+using Infrastructure.Caching;
 using Infrastructure.Identity.OptionsSetup;
 using Infrastructure.Identity.Permissions;
 using Infrastructure.Identity.Services;
@@ -52,5 +53,10 @@ public static class DependencyInjection
         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
         services.AddScoped<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+    }
+
+    private static void AddCaching(IServiceCollection services)
+    {
+        services.ConfigureOptions<CacheOptionsSetup>();
     }
 }
