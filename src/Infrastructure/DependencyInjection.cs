@@ -1,4 +1,5 @@
-﻿using Application.Common.Abstractions.Identity;
+﻿using Application.Common.Abstractions.Caching;
+using Application.Common.Abstractions.Identity;
 using Domain.Constants;
 using Infrastructure.Caching;
 using Infrastructure.Identity.OptionsSetup;
@@ -16,6 +17,7 @@ public static class DependencyInjection
     {
         AddIdentity(services);
         AddAuthenticationAuthorization(services);
+        AddCaching(services);
         return services;
     }
 
@@ -58,5 +60,6 @@ public static class DependencyInjection
     private static void AddCaching(IServiceCollection services)
     {
         services.ConfigureOptions<CacheOptionsSetup>();
+        services.AddSingleton<IInMemoryCacheService, InMemoryCacheService>();
     }
 }
