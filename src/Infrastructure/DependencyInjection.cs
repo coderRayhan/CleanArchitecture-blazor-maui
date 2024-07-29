@@ -13,6 +13,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
+        AddIdentity(services);
         AddAuthenticationAuthorization(services);
         return services;
     }
@@ -22,6 +23,8 @@ public static class DependencyInjection
         services.AddTransient<IIdentityService, IdentityService>();
 
         services.AddTransient<IIdentityRoleService, IdentityRoleService>();
+
+        services.AddTransient<IAuthService, AuthService>();
 
         services.AddTransient<ITokenProviderService, TokenProviderService>();
     }
