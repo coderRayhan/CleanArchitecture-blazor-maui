@@ -61,5 +61,6 @@ public static class DependencyInjection
     {
         services.ConfigureOptions<CacheOptionsSetup>();
         services.AddSingleton<IInMemoryCacheService, InMemoryCacheService>();
+        services.AddSingleton<IDistributedCacheService, DistributedCacheService>();
     }
 }
