@@ -1,10 +1,11 @@
 ﻿using Application.Common.Exceptions;
 using Ardalis.GuardClauses;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Infrastructure;
 
-public class CustomExceptionHandler
+public class CustomExceptionHandler : IExceptionHandler
 {
     private readonly Dictionary<Type, Func<HttpContext, Exception, Task>> _exceptionHandlers;
 
