@@ -59,6 +59,7 @@ public static class DependencyInjection
 
     private static void AddCaching(IServiceCollection services)
     {
+        services.AddLazyCache();
         services.ConfigureOptions<CacheOptionsSetup>();
         services.AddSingleton<IInMemoryCacheService, InMemoryCacheService>();
         services.AddSingleton<IDistributedCacheService, DistributedCacheService>();

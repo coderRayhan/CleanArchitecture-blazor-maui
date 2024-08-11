@@ -1,22 +1,18 @@
 ﻿using Application.Common.Abstractions.Caching;
-using Microsoft.Extensions.Caching.Memory;
+using LazyCache;
 
 namespace Infrastructure.Caching;
-internal class InMemoryCacheService(IMemoryCache memoryCache) :
+internal class InMemoryCacheService(IAppCache memoryCache) :
     IInMemoryCacheService
 {
     public static readonly TimeSpan DefaultExpiration = TimeSpan.FromMinutes(5);
-    private readonly IMemoryCache _memoryCache = memoryCache;
-    public async Task<T> GetOrCreateAsync<T>(string key, Func<CancellationToken, Task<T>> factory, TimeSpan? expiration = null, CancellationToken cancellationToken = default)
+    private readonly IAppCache _memoryCache = memoryCache;
+    public async Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> factory, TimeSpan? expiration = null, CancellationToken cancellationToken = default)
     {
-        T? result = await _memoryCache.GetOrCreateAsync(
+        T? result = await _memoryCache.GetOrAddAsync(
             key,
-            entry =>
-            {
-                entry.SetAbsoluteExpiration(expiration ?? DefaultExpiration);
-
-                return factory(cancellationToken);
-            });
+            async () => await factory(),
+            expiration ?? DefaultExpiration);
 
         return result;
     }

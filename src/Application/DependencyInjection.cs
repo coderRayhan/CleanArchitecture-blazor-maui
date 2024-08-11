@@ -18,6 +18,8 @@ public static class DependencyInjection
             cfg.AddOpenBehavior(typeof(UnhandledExceptionBehaviour<,>));
 
             cfg.AddOpenBehavior(typeof(ValidationBehaviour<,>));
+
+            cfg.AddOpenBehavior(typeof(MemoryCachingBehaviour<,>));
         });
 
         return services;

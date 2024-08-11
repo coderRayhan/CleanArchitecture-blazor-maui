@@ -9,7 +9,7 @@ public interface IInMemoryCacheService
 {
     Task<T> GetOrCreateAsync<T>(
         string key,
-        Func<CancellationToken, Task<T>> factory,
+        Func<Task<T>> factory,
         TimeSpan? expiration = null,
         CancellationToken cancellationToken = default);
 
