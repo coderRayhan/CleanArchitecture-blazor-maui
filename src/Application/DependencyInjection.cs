@@ -19,7 +19,11 @@ public static class DependencyInjection
 
             cfg.AddOpenBehavior(typeof(ValidationBehaviour<,>));
 
-            cfg.AddOpenBehavior(typeof(MemoryCachingBehaviour<,>));
+            //cfg.AddOpenBehavior(typeof(MemoryCachingBehaviour<,>));
+
+            cfg.AddOpenBehavior(typeof(QueryCachingBehaviour<,>));
+
+            cfg.AddOpenBehavior(typeof(AuthorizationBehaviour<,>));
         });
 
         return services;
