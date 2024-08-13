@@ -1,7 +1,9 @@
 ﻿using Application.Common.Abstractions;
 using Application.Common.Abstractions.Caching;
 using Application.Common.Abstractions.Contracts;
+using Domain.Entities;
 using Domain.Shared;
+using Mapster;
 using System.Text.Json.Serialization;
 
 namespace Application.Features.Lookups.Commands;
@@ -22,8 +24,13 @@ internal sealed class CreateLookupCommandHandler(
     IApplicationDbContext dbContext)
     : ICommandHandler<CreateLookupCommand, Guid>
 {
-    public Task<Result<Guid>> Handle(CreateLookupCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateLookupCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var entity = request.Adapt<Lookup>();
+
+        dbContext.Lookups.Add(entity);
+        await dbContext.SaveChangesAsync(cancellationToken);
+
+        return Result.Success(entity.Id);
     }
 }

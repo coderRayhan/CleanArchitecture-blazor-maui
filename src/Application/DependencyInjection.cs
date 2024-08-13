@@ -1,4 +1,5 @@
 ﻿using Application.Common.Behaviours;
+using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -28,6 +29,8 @@ public static class DependencyInjection
             cfg.AddOpenBehavior(typeof(CacheInvalidationBehaviour<,>));
 
         });
+
+        services.AddMapster();
 
         return services;
     }
