@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Infrastructure.Persistence;
 public sealed class ApplicationDbContext : DbContext, IApplicationDbContext
 {
-    public DbSet<Lookups> Lookups => Set<Lookups>();
+    public DbSet<Lookup> Lookups => Set<Lookup>();
 
     public DbSet<LookupDetails> LookupDetails => Set<LookupDetails>();
 

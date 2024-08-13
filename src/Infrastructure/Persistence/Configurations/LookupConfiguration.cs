@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Persistence.Configurations;
 internal sealed class LookupConfiguration :
-    IEntityTypeConfiguration<Lookups>
+    IEntityTypeConfiguration<Lookup>
 {
-    public void Configure(EntityTypeBuilder<Lookups> builder)
+    public void Configure(EntityTypeBuilder<Lookup> builder)
     {
         builder.Property(x => x.Name)
             .HasMaxLength(200)
