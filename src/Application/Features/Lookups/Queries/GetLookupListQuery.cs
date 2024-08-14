@@ -31,6 +31,9 @@ internal sealed class GetLookupListQueryHandler(
             EF.Functions.Like(e.Name, $"%{request.GlobalFilterText}%") ||
             EF.Functions.Like(e.NameBN, $"%{request.GlobalFilterText}%") ||
             EF.Functions.Like(e.Name, $"%{request.GlobalFilterText}%"))
-            .ProjectQueryableToPaginatedListAsync<Lookup, LookupResponse>(request.PageNumber, request.PageSize, cancellationToken);
+            .ProjectQueryableToPaginatedListAsync<Lookup, LookupResponse>(
+            request.PageNumber, 
+            request.PageSize, 
+            cancellationToken);
     }
 }
