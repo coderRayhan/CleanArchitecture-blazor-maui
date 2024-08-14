@@ -8,4 +8,6 @@ public abstract record DataGridModel
     public string SortField { get; set; } = string.Empty;
     public string SortingDirection { get; set; } = "DESC";
     public string? DefaultOrderFieldName { get; set; } = null;
+
+    public string? GlobalFilterText { get; set; } = string.Empty;
 }
