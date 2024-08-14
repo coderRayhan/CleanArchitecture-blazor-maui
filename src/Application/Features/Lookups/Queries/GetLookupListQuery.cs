@@ -12,7 +12,7 @@ namespace Application.Features.Lookups.Queries;
 public sealed record GetLookupListQuery : DataGridModel, ICacheableQuery<PaginatedList<LookupResponse>>
 {
     [JsonIgnore]
-    public string CacheKey => $"Lookup_{Offset}_{PageSize}";
+    public string CacheKey => $"Lookup_{PageNumber}_{PageSize}";
     [JsonIgnore]
     public TimeSpan? Expiration { get; set; } = null;
 
