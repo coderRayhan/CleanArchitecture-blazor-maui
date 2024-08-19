@@ -1,9 +1,11 @@
 ﻿using Application.Common.Abstractions;
 using Application.Common.Abstractions.Caching;
 using Application.Common.Abstractions.Identity;
+using Ardalis.GuardClauses;
 using Domain.Constants;
 using Infrastructure.Caching;
 using Infrastructure.Identity;
+using Infrastructure.Identity.Model;
 using Infrastructure.Identity.OptionsSetup;
 using Infrastructure.Identity.Permissions;
 using Infrastructure.Identity.Services;
@@ -11,19 +13,31 @@ using Infrastructure.Persistence;
 using Infrastructure.Persistence.Interceptors;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 
-namespace Infrastructure;
+namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyInjection
 {
+    private const string DefaultConnection = nameof(DefaultConnection);
+    private const string IdentityConnection = nameof(IdentityConnection);
+    private const string RedisConnection = nameof(RedisConnection);
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        AddPersistence(services, "", "");
-        AddRedis(services, "");
+        var dbConnectionString = configuration.GetConnectionString(DefaultConnection);
+        var identityConnectionString = configuration.GetConnectionString(IdentityConnection);
+        var redisConnectionString = configuration.GetConnectionString(RedisConnection);
+
+        Guard.Against.Null(dbConnectionString, message: $"Connection string '{nameof(DefaultConnection)}' not found");
+        Guard.Against.Null(identityConnectionString, message: $"Connection string '{nameof(IdentityConnection)}' not found");
+        Guard.Against.Null(redisConnectionString, message: $"Connection string '{nameof(RedisConnection)}' not found");
+
+        AddPersistence(services, dbConnectionString, identityConnectionString);
+        AddRedis(services, redisConnectionString);
         AddIdentity(services);
         AddAuthenticationAuthorization(services);
         AddCaching(services);
@@ -56,6 +70,11 @@ public static class DependencyInjection
 
     private static void AddIdentity(IServiceCollection services)
     {
+        services.AddIdentityCore<ApplicationUser>()
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<IdentityContext>()
+            .AddApiEndpoints();
+
         services.AddTransient<IIdentityService, IdentityService>();
 
         services.AddTransient<IIdentityRoleService, IdentityRoleService>();
@@ -87,7 +106,7 @@ public static class DependencyInjection
 
         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
-        services.AddScoped<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+        services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
     }
 
     private static void AddCaching(IServiceCollection services)

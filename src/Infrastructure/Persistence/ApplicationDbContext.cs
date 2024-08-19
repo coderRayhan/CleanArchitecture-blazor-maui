@@ -11,6 +11,11 @@ using System.Threading.Tasks;
 namespace Infrastructure.Persistence;
 public sealed class ApplicationDbContext : DbContext, IApplicationDbContext
 {
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        :base(options)
+    {
+        
+    }
     public DbSet<Lookup> Lookups => Set<Lookup>();
 
     public DbSet<LookupDetails> LookupDetails => Set<LookupDetails>();
