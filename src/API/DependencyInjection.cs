@@ -55,4 +55,14 @@ public static class DependencyInjection
         services.Configure<ApiBehaviorOptions>(options =>
         options.SuppressModelStateInvalidFilter = true);
     }
+
+    private static void AddOpenApiDocument(IServiceCollection services)
+    {
+        services.AddOpenApiDocument((settings, sp) =>
+        {
+            settings.Title = "API";
+
+
+        });
+    }
 }
