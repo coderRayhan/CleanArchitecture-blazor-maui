@@ -19,7 +19,7 @@ public static class IdentityInitialiserExtensions
 
         var identityInitialiser = scope.ServiceProvider.GetRequiredService<IdentityContextInitialiser>();
 
-        await identityInitialiser.InitializeAsync();
+        //await identityInitialiser.InitializeAsync();
 
         await identityInitialiser.SeedAsync();
     }

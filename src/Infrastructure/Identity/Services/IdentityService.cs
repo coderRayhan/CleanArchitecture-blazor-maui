@@ -1,4 +1,5 @@
 ﻿using Application.Common.Abstractions.Identity;
+using Application.Common.Constants;
 using Application.Features.AppUsers.Commands;
 using Domain.Shared;
 using Infrastructure.Identity.Model;
@@ -37,6 +38,20 @@ public class IdentityService(
 
         return result.Succeeded ? Result.Success() :
             Result.Failure(Error.Unauthorized(nameof(ErrorType.Unauthorized), string.Empty));
+    }
+
+    public async Task<Result> ChangePasswordAsync(string userId, string oldPassword, string newPassword, CancellationToken cancellationToken = default)
+    {
+        var user = await identityContext.Users
+            .SingleOrDefaultAsync(e => e.Id == userId, cancellationToken)
+            .ConfigureAwait(false);
+
+        if (user is null)
+            return Result.Failure(Error.Failure("User.Password", ErrorMessages.USER_NOT_FOUND));
+
+        var identityResult = await userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+
+        return identityResult.ToApplicationResult();
     }
 
     public async Task<Result<string>> CreateUserAsync(CreateUserCommand command, CancellationToken cancellationToken = default)

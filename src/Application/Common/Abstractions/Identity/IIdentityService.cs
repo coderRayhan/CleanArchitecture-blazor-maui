@@ -15,4 +15,10 @@ public interface IIdentityService
     Task<Result> DeleteUserAsync(string userId, CancellationToken cancellationToken = default);
 
     Task<Result> AddToRolesAsync(string userId, List<string> roles, CancellationToken cancellationToken);
+
+    Task<Result> ChangePasswordAsync(
+        string userId,
+        string oldPassword, 
+        string newPassword, 
+        CancellationToken cancellationToken = default);
 }

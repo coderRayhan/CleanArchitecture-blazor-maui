@@ -11,4 +11,6 @@ public interface IAuthService
     Task<(Result Result, string UserId)> ForgotPassword(string email);
 
     Task<(Result Result, string UserId)> ResetPassword(string email);
+
+    Task<Result> Logout(string userId, string accessToken, CancellationToken cancellationToken = default);
 }

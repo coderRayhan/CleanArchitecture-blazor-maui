@@ -167,4 +167,24 @@ internal sealed class AuthService(
             return Result.Failure<ClaimsPrincipal>(Error.Validation("Token", ErrorMessages.INVALID_TOKEN));
         }
     }
+
+    public async Task<Result> Logout(string userId, string accessToken, CancellationToken cancellationToken = default)
+    {
+        // Get ClaimsPrinciple from accessToken
+        var claimsPrincipleResult =
+            GetClaimsPrincipleFromJwtToken(accessToken);
+
+        // Get Identity UserId from ClaimPrinciple
+        var userIdFromPrinciple = claimsPrincipleResult.Value?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        context.RefreshTokens
+            .Where(x => x.ApplicationUserId == (userId ?? userIdFromPrinciple) && x.Revoked == null)
+            .ExecuteUpdate(e => e.SetProperty(e => e.Revoked, DateTime.Now));
+
+        var affectedRow = await context.SaveChangesAsync(cancellationToken);
+
+        return affectedRow > 0
+            ? Result.Success()
+            : Result.Failure(Error.NotFound("Token", ErrorMessages.INVALID_TOKEN));
+    }
 }

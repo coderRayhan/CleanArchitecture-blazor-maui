@@ -17,13 +17,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    //await app.IdentityInitialiseDatabaseAsync();
-
-    //app.UseSwagger();
-    //app.UseSwaggerUI(op =>
-    //{
-    //    op.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-    //});
+    await app.IdentityInitialiseDatabaseAsync();
 
     app.UseSwaggerUi(options =>
     {
