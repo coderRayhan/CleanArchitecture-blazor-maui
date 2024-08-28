@@ -1,6 +1,5 @@
 ﻿using Application.Common.Behaviours;
 using Mapster;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;

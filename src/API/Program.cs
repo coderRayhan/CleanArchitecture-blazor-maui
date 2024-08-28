@@ -1,6 +1,7 @@
+using API;
 using API.Extensions;
+using Infrastructure;
 using Infrastructure.Identity;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,3 +48,4 @@ app.MapEndpoints();
 
 app.Run();
 
+public partial class Program { }
