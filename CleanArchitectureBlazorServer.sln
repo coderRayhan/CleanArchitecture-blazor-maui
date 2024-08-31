@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "src\Web\Web.csproj",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{79EC9BE3-BF52-48F2-8949-9C974EB04D74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Integration.Tests", "tests\Application.Integration.Tests\Application.Integration.Tests.csproj", "{E5F708BB-B105-4854-B96B-913CAC489F5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Integration.Tests", "tests\Application.Integration.Tests\Application.Integration.Tests.csproj", "{E5F708BB-B105-4854-B96B-913CAC489F5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
