@@ -78,7 +78,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Lookups");
+                    b.ToTable("Lookups", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.LookupDetails", b =>
@@ -140,7 +140,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("LookupDetails");
+                    b.ToTable("LookupDetails", (string)null);
                 });
 #pragma warning restore 612, 618
         }

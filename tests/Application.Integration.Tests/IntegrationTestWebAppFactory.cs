@@ -5,15 +5,23 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Testcontainers.MsSql;
+using Testcontainers.PostgreSql;
 
 namespace Application.Integration.Tests
 {
     public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
     {
-        private readonly MsSqlContainer _dbContainer = new MsSqlBuilder()
-        .WithImage("mcr.microsoft.com/mssql/server")
-        .WithPassword("Rakib1523@@")
-        .Build();
+        //private readonly MsSqlContainer _dbContainer = new MsSqlBuilder()
+        //.WithImage("mcr.microsoft.com/mssql/server")
+        //.WithPassword("Rakib1523@@")
+        //.Build();
+
+        private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
+            .WithImage("postgres:alpine3.20")
+            .WithDatabase("IventoryDB")
+            .WithUsername("postgres")
+            .WithPassword("postgres")
+            .Build();
 
         public Task InitializeAsync()
         {
@@ -35,7 +43,7 @@ namespace Application.Integration.Tests
                 services.AddDbContext<ApplicationDbContext>(options =>
                 {
                     options
-                    .UseSqlServer(_dbContainer.GetConnectionString());
+                    .UseNpgsql(_dbContainer.GetConnectionString());
                 });
             });
         }

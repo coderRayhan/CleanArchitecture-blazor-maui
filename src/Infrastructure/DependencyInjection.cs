@@ -52,14 +52,19 @@ public static class DependencyInjection
         {
             options.AddInterceptors(sp.GetRequiredService<ISaveChangesInterceptor>());
 
-            options.UseSqlServer(appDbConString);
+            //options.UseSqlServer(appDbConString);       
+            options.UseNpgsql(appDbConString);
         });
 
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<IdentityContextInitialiser>();
 
-        services.AddDbContext<IdentityContext>(op => op.UseSqlServer(identityDbConString));
+        services.AddDbContext<IdentityContext>(op =>
+        {
+            //op.UseSqlServer(identityDbConString);
+            op.UseNpgsql(identityDbConString);
+        });
     }
 
     private static void AddRedis(IServiceCollection services, string redisConString)
