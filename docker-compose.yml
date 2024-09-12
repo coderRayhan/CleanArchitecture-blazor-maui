@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  inventory.api:
+    image: ${DOCKER_REGISTRY-}api
+    container_name: inventory.api
+    build:
+      context: .
+      dockerfile: src/API/Dockerfile
+    ports:
+        - "5000:5000"
+        - "5001:5001"
+
+  inventory.database:
+    image: postgres:latest
+    container_name: inventory.database
+    environment:
+        - POSTGRES_DB=inventory
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+    volumes:
+        - ./.containers/products-db:/var/lib/postgresql/data
+    ports:
+        - 5432:5432
+
+  inventory.cache:
+    image: redis:latest
+    restart: always
+    ports:
+        - '6379:6379'

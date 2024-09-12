@@ -13,6 +13,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="NSwag.AspNetCore" Version="14.1.0" />
     <PackageReference Include="NSwag.MSBuild" Version="14.1.0">
       <PrivateAssets>all</PrivateAssets>
@@ -32,6 +33,10 @@
 	<!-- Auto-generated Open API specification and Angular TypeScript clients -->
 	<PropertyGroup>
 		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+		<UserSecretsId>8f018ba8-f4df-4188-babf-4beb49523ec4</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>..\..</DockerfileContext>
+		<DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
 	</PropertyGroup>
 
 	<!-- NSwag configuration -->
