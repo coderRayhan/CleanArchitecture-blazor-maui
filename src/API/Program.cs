@@ -18,7 +18,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    await app.IdentityInitialiseDatabaseAsync();
+    //await app.IdentityInitialiseDatabaseAsync();
 
     app.UseSwaggerUi(options =>
     {
