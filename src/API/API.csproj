@@ -42,7 +42,7 @@
 
 <!--        <Exec WorkingDirectory="$(ProjectDir)"-->
 <!--              EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development"-->
-<!--              Command="nswag run config.nswag /variables:Configuration=$(Configuration)">-->
+<!--              Command="dotnet tool run nswag run config.nswag /variables:Configuration=$(Configuration)">-->
 
 <!--            <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode" />-->
 <!--            <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput" />-->
@@ -56,4 +56,5 @@
 <!--               Condition="'$(NSwagExitCode)' != '0'" />-->
 <!--    </Target>-->
 
+<!--  dotnet tool run nswag run config.nswag /variables:Configuration=Debug-->
 </Project>
