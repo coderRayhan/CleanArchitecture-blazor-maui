@@ -1,22 +1,10 @@
 {
-  "runtime": "Net80",
+  "runtime": "Net100",
   "defaultVariables": null,
   "documentGenerator": {
-    "aspNetCoreToOpenApi": {
-      "project": "API.csproj",
-      "documentName": "v1",
-      "msBuildProjectExtensionsPath": null,
-      "configuration": null,
-      "runtime": null,
-      "targetFramework": null,
-      "noBuild": true,
-      "msBuildOutputPath": null,
-      "verbose": false,
-      "workingDirectory": null,
-      "aspNetCoreEnvironment": null,
-      "output": "wwwroot/api/specification.json",
-      "newLineBehavior": "Auto"
-    }
+    "fromDocument": {
+          "url": "http://localhost:5164/openapi/v1.json"
+        }
   },
   "codeGenerators": {
     "openApiToTypeScriptClient": {
@@ -76,7 +64,7 @@
       "templateDirectory": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "../../../Client/src/app/modules/generated-clients/api-service.ts",
+      "output": "../../../angular_client/src/app/main/module/generated-clients/api-service.ts",
       "newLineBehavior": "Auto"
     }
   }
